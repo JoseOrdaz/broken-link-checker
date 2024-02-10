@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "broken-link-checker": "^0.7.8",
+    "express": "^4.18.2"
+  }
+}
