@@ -156,7 +156,7 @@
             document.getElementById('results').classList.add('hidden');
 
             const response = await fetch('/check', {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json' // Cambiado a application/json
                 },
