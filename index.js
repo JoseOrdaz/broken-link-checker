@@ -14,13 +14,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/check", async (req, res) => {
-    const { url } = req.body;
 
+   
+    const { url } = req.body;
     const siteUrl = url;
 
     const options = {
         filterLevel: 1,
-        excludeExternalLinks: false,
+        excludeExternalLinks: true,
         excludeInternalLinks: false,
         userAgent: 'Your User Agent',
         acceptedSchemes: ['http', 'https'],
@@ -44,11 +45,21 @@ app.post("/check", async (req, res) => {
 
             console.log('PROCESO FINALIZADO'); // Mostrar "OK" cuando el proceso ha finalizado
             res.json(brokenLinks); // Enviar los enlaces rotos como JSON
+            app.set('brokenLinks', brokenLinks);
         },
     });
 
     siteChecker.enqueue(siteUrl);
+    
 });
+
+app.get("/datos", (req, res) => {
+    const brokenLinks = app.get('brokenLinks');
+    res.json(brokenLinks || []);
+});
+
+
+
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
